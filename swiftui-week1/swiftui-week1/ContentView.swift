@@ -9,16 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 20) {
+                ProfileView()
+                
+                Divider()
+                
+                FeedView()
+            }
+            .padding(.horizontal, 16)
         }
-        .padding()
+        .safeAreaInset(edge: .top) {
+            Color.white
+                .frame(height: 0)
+                .background(Color.white)
+        }
     }
-}
-
-#Preview {
-    ContentView()
 }
