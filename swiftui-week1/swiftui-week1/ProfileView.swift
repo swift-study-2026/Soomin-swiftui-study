@@ -13,7 +13,7 @@ struct ProfileView: View {
             ProfileHeaderView()
             ProfileInfoView()
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(alignment: .leading)
     }
 }
 
@@ -25,7 +25,7 @@ struct ProfileHeaderView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 80, height: 80)
                 .clipShape(Circle())
-                .background(
+                .overlay(
                     Circle()
                         .stroke(.mint.opacity(0.3), lineWidth: 1)
                         .frame(width: 88, height: 88)
