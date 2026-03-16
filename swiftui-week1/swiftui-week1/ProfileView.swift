@@ -57,6 +57,8 @@ struct ProfileHeaderView: View {
 }
 
 struct ProfileInfoView: View {
+    @State private var isEditButtonTapped: Bool = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             VStack(alignment: .leading, spacing: 4) {
@@ -66,9 +68,17 @@ struct ProfileInfoView: View {
             .font(.regular14)
             
             HStack(spacing: 10) {
-                profileButton(name: "Edit profile")
+                Button {
+                    isEditButtonTapped = true
+                } label: {
+                    profileButton(name: "Edit profile")
+                }
+                .buttonStyle(.plain)
                 profileButton(name: "Share profile")
             }
+        }
+        .sheet(isPresented: $isEditButtonTapped) {
+            EditProfileView()
         }
     }
     
