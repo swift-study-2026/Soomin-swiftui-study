@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Feed: Identifiable {
+struct Feed: Identifiable, Hashable {
     let id: UUID = UUID()
     let image: ImageResource
 }
@@ -38,9 +38,12 @@ struct FeedView: View {
     var body: some View {
         LazyVGrid(columns: columns, spacing: 5) {
             ForEach(feeds) { feed in
-                Image(feed.image)
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fill)
+                NavigationLink(value: feed) {
+                    Image(feed.image)
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fill)
+                        .clipped()
+                }
             }
         }
     }
