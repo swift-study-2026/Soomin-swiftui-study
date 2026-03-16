@@ -9,20 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 20) {
-                ProfileView()
-                
-                Divider()
-                
-                FeedView()
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 20) {
+                    ProfileView()
+                    Divider()
+                    FeedView()
+                }
+                .padding(.horizontal, 16)
             }
-            .padding(.horizontal, 16)
-        }
-        .safeAreaInset(edge: .top) {
-            Color.white
-                .frame(height: 0)
-                .background(Color.white)
+            .navigationDestination(for: Feed.self) { selectedFeed in
+                PostView(feed: selectedFeed)
+            }
         }
     }
 }
