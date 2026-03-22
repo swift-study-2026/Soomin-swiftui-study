@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-struct Feed: Identifiable, Hashable {
-    let id: UUID = UUID()
-    let image: ImageResource
-}
-
 struct FeedView: View {
     let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 5),
