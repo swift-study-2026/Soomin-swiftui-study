@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PostView: View {
+    @Environment(User.self) private var user
     @Environment(\.dismiss) private var dismiss
     @State private var isLikeButtonTapped = false
     @State private var isLiked = false
@@ -22,7 +23,8 @@ struct PostView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
-                Text("gleamminn").font(.headline)
+                Text(user.name)
+                    .font(.headline)
                 
                 Spacer()
                 
@@ -52,7 +54,7 @@ struct PostView: View {
             
             Spacer()
         }
-        .navigationTitle("gleamminn의 게시물")
+        .navigationTitle("\(user.name)의 게시물")
         .alert("조아요", isPresented: $isLikeButtonTapped) {
             Button("넹", role: .cancel) { }
         } message: {

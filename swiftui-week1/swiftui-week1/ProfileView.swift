@@ -18,6 +18,8 @@ struct ProfileView: View {
 }
 
 struct ProfileHeaderView: View {
+    @Environment(User.self) private var user
+    
     var body: some View {
         HStack(spacing: 20) {
             Image("image")
@@ -33,8 +35,11 @@ struct ProfileHeaderView: View {
             
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
-                    Text("gleamminn").font(.bold16)
-                    Text("she/her").font(.regular12).foregroundStyle(.gray)
+                    Text(user.name)
+                        .font(.bold16)
+                    Text("she/her")
+                        .font(.regular12)
+                        .foregroundStyle(.gray)
                 }
                 
                 HStack(spacing: 20) {
@@ -57,13 +62,13 @@ struct ProfileHeaderView: View {
 }
 
 struct ProfileInfoView: View {
+    @Environment(User.self) private var user
     @State private var isEditButtonTapped: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("내가 누구게")
-                Text("스유 콩코롱시 스터디 매주 월요일...")
+                Text(user.bio)
             }
             .font(.regular14)
             
@@ -73,9 +78,14 @@ struct ProfileInfoView: View {
                 } label: {
                     profileButton(name: "Edit profile")
                 }
-                .buttonStyle(.plain)
-                profileButton(name: "Share profile")
+                
+                Button {
+                    user.isLoggedIn = false
+                } label: {
+                    profileButton(name: "Logout")
+                }
             }
+            .buttonStyle(.plain)
         }
         .sheet(isPresented: $isEditButtonTapped) {
             EditProfileView()
