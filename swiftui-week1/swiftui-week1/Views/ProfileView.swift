@@ -18,34 +18,36 @@ struct ProfileView: View {
 }
 
 struct ProfileHeaderView: View {
-    @Environment(User.self) private var user
+    @Environment(AppState.self) private var appState
     
     var body: some View {
-        HStack(spacing: 20) {
-            Image("image")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 80, height: 80)
-                .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(.mint.opacity(0.3), lineWidth: 1)
-                        .frame(width: 88, height: 88)
-                )
-            
-            VStack(alignment: .leading, spacing: 15) {
-                HStack {
-                    Text(user.name)
-                        .font(.bold16)
-                    Text("she/her")
-                        .font(.regular12)
-                        .foregroundStyle(.gray)
-                }
+        if let user = appState.currentUser {
+            HStack(spacing: 20) {
+                Image("image")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 80, height: 80)
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle()
+                            .stroke(.mint.opacity(0.3), lineWidth: 1)
+                            .frame(width: 88, height: 88)
+                    )
                 
-                HStack(spacing: 20) {
-                    userInfo(number: "84", name: "posts")
-                    userInfo(number: "111", name: "followers")
-                    userInfo(number: "232", name: "following")
+                VStack(alignment: .leading, spacing: 15) {
+                    HStack {
+                        Text(user.name)
+                            .font(.bold16)
+                        Text("she/her")
+                            .font(.regular12)
+                            .foregroundStyle(.gray)
+                    }
+                    
+                    HStack(spacing: 20) {
+                        userInfo(number: "84", name: "posts")
+                        userInfo(number: "111", name: "followers")
+                        userInfo(number: "232", name: "following")
+                    }
                 }
             }
         }
@@ -62,33 +64,35 @@ struct ProfileHeaderView: View {
 }
 
 struct ProfileInfoView: View {
-    @Environment(User.self) private var user
+    @Environment(AppState.self) private var appState
     @State private var isEditButtonTapped: Bool = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(user.bio)
-            }
-            .font(.regular14)
-            
-            HStack(spacing: 10) {
-                Button {
-                    isEditButtonTapped = true
-                } label: {
-                    profileButton(name: "Edit profile")
+        if let user = appState.currentUser {
+            VStack(alignment: .leading, spacing: 15) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(user.bio)
                 }
+                .font(.regular14)
                 
-                Button {
-                    user.isLoggedIn = false
-                } label: {
-                    profileButton(name: "Logout")
+                HStack(spacing: 10) {
+                    Button {
+                        isEditButtonTapped = true
+                    } label: {
+                        profileButton(name: "Edit profile")
+                    }
+                    
+                    Button {
+                        appState.logout()
+                    } label: {
+                        profileButton(name: "Logout")
+                    }
                 }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
-        }
-        .sheet(isPresented: $isEditButtonTapped) {
-            EditProfileView()
+            .sheet(isPresented: $isEditButtonTapped) {
+                EditProfileView()
+            }
         }
     }
     

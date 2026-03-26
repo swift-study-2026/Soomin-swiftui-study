@@ -12,12 +12,10 @@ final class User {
     var name: String
     var bio: String
     var isPrivate: Bool
-    var isLoggedIn: Bool
 
-    init(name: String = "알 수 업서요", bio: String = "어떤 사람..?", isPrivate: Bool = false, isLoggedIn: Bool = false) {
+    init(name: String = "알 수 업서요", bio: String = "어떤 사람..?", isPrivate: Bool = false) {
         self.name = name
         self.bio = bio
         self.isPrivate = isPrivate
-        self.isLoggedIn = isLoggedIn
     }
 }

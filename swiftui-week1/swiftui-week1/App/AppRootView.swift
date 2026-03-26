@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct AppRootView: View {
-    @Environment(User.self) private var user
+    @Environment(AppState.self) private var appState
     
     var body: some View {
-        if user.isLoggedIn {
+        if appState.isLoggedIn {
             MainView()
         } else {
             LoginView()

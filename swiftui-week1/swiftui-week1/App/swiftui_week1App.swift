@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct swiftui_week1App: App {
-    @State private var user = User()
+    @State private var appState = AppState()
     
     var body: some Scene {
         WindowGroup {
             AppRootView()
-                .environment(user)
+                .environment(appState)
         }
     }
 }

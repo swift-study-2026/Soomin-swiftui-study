@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct LoginView: View {
-    @Environment(User.self) private var user
+    @Environment(AppState.self) private var appState
+    @State private var id: String = ""
+    @State private var bio: String = ""
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 30) {
+            VStack(spacing: 15) {
+                TextField("아이디", text: $id)
+                TextField("자기소개", text: $bio)
+            }
+            .textFieldStyle(.roundedBorder)
+            .padding(.horizontal, 20)
+            
             Button("로그인") {
-                user.isLoggedIn = true
+                let user = User(name: id, bio: bio)
+                appState.login(user: user)
             }
             .buttonStyle(.borderedProminent)
         }

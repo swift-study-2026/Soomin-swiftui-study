@@ -9,27 +9,29 @@ import SwiftUI
 
 struct EditProfileView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(User.self) private var user
+    @Environment(AppState.self) private var appState
     
     var body: some View {
-        @Bindable var user = user
-        
-        NavigationStack {
-            Form {
-                Section{
-                    TextField("이름", text: $user.name)
-                    TextField("소개", text: $user.bio)
+        if let user = appState.currentUser {
+            @Bindable var user = user
+            
+            NavigationStack {
+                Form {
+                    Section{
+                        TextField("이름", text: $user.name)
+                        TextField("소개", text: $user.bio)
+                    }
+                    Section {
+                        Toggle("비공개 할래말래", isOn: $user.isPrivate)
+                    }
                 }
-                Section {
-                    Toggle("비공개 할래말래", isOn: $user.isPrivate)
-                }
-            }
-            .navigationTitle("프로필 편집")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("확인") {
-                        dismiss()
+                .navigationTitle("프로필 편집")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("확인") {
+                            dismiss()
+                        }
                     }
                 }
             }
