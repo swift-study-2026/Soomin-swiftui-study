@@ -79,16 +79,16 @@ struct ProfileInfoView: View {
                     Button {
                         isEditButtonTapped = true
                     } label: {
-                        profileButton(name: "Edit profile")
+                        Text("Edit Profile")
                     }
                     
                     Button {
                         appState.logout()
                     } label: {
-                        profileButton(name: "Logout")
+                        Text("Logout")
                     }
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(CustomSubButtonStyle())
             }
             .sheet(isPresented: $isEditButtonTapped) {
                 EditProfileView()

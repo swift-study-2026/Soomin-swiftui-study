@@ -16,16 +16,17 @@ struct LoginView: View {
         VStack(spacing: 30) {
             VStack(spacing: 15) {
                 TextField("아이디", text: $id)
+                    .textFieldStyle()
                 TextField("자기소개", text: $bio)
+                    .textFieldStyle()
             }
-            .textFieldStyle(.roundedBorder)
-            .padding(.horizontal, 20)
             
             Button("로그인") {
                 let user = User(name: id, bio: bio)
                 appState.login(user: user)
             }
-            .buttonStyle(.borderedProminent)
+            .primaryButtonStyle()
         }
+        .padding(.horizontal, 20)
     }
 }
